@@ -339,7 +339,7 @@ impl<T: Trait> Module<T> {
 		<Miner<T>>::contains_key(&who)
 	}
 
-	pub fn verify_signature<P>(serialized_pk: Vec<u8>, data: &P) -> dispatch::DispatchResult where P: SignedDataType<Vec<u8>> {
+	pub fn verify_signature(serialized_pk: Vec<u8>, data: &impl SignedDataType<Vec<u8>>) -> dispatch::DispatchResult {
 		let mut pk = [0u8; 33];
 		pk.copy_from_slice(&serialized_pk);
 		let pub_key = secp256k1::PublicKey::parse_compressed(&pk);
